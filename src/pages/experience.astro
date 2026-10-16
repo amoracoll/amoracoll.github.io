@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const jobs = (await getCollection("experience")).sort((a, b) =>
+  b.data.start.localeCompare(a.data.start),
+);
+---
+
+<BaseLayout
+  title="Experience — Arnau Mora Coll"
+  description="Professional experience, education and skills of Arnau Mora Coll, AEC Developer."
+>
+  <div class="mx-auto flex max-w-3xl flex-col gap-12">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <h1 class="text-3xl font-bold">Experience</h1>
+      <a
+        href="/cv.pdf"
+        download
+        class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-150 hover:bg-blue-700 dark:bg-blue-400 dark:text-zinc-950 dark:hover:bg-blue-300"
+      >
+        Download CV
+      </a>
+    </div>
+
+    <section class="flex flex-col gap-8" aria-labelledby="jobs-heading">
+      <h2 id="jobs-heading" class="sr-only">
+        Jobs
+      </h2>
+      {jobs.length > 0 ? (
+        <ol class="flex flex-col gap-8">
+          {jobs.map((job) => (
+            <li class="flex flex-col gap-2">
+              <h3 class="font-semibold">
+                {job.data.role} · {job.data.company}
+              </h3>
+              <p class="font-mono text-sm text-zinc-600 dark:text-zinc-400">
+                {job.data.start} – {job.data.end ?? "present"} ·{" "}
+                {job.data.location}
+              </p>
+              <ul class="list-disc pl-5">
+                {job.data.highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p class="text-zinc-600 dark:text-zinc-400">No jobs yet.</p>
+      )}
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-semibold">Education</h2>
+      <p class="text-zinc-600 dark:text-zinc-400">TODO</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-semibold">Skills</h2>
+      <p class="text-zinc-600 dark:text-zinc-400">TODO</p>
+    </section>
+  </div>
+</BaseLayout>

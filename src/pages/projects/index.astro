@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getSortedProjects } from "../../lib/projects";
+
+const projects = await getSortedProjects();
+---
+
+<BaseLayout
+  title="Projects — Arnau Mora Coll"
+  description="Projects by Arnau Mora Coll: the problem, the solution and the technologies used."
+>
+  <div class="mx-auto flex max-w-5xl flex-col gap-8">
+    <h1 class="text-3xl font-bold">Projects</h1>
+    {projects.length > 0 ? (
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    ) : (
+      <p class="text-zinc-600 dark:text-zinc-400">No projects yet.</p>
+    )}
+  </div>
+</BaseLayout>

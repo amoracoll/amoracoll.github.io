@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import TagList from "./TagList.astro";
+import type { Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { title, summary, tags, cover } = project.data;
+---
+
+<article class="flex flex-col gap-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+  {cover && (
+    <Image
+      src={cover}
+      alt=""
+      class="aspect-video w-full rounded object-cover"
+    />
+  )}
+  <h3 class="font-semibold">
+    <a
+      href={`/projects/${project.id}`}
+      class="rounded text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+    >
+      {title}
+    </a>
+  </h3>
+  <p class="text-sm text-zinc-600 dark:text-zinc-400">{summary}</p>
+  <TagList tags={tags} />
+</article>

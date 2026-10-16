@@ -1,0 +1,3 @@
+# One entry per job. Each entry needs a unique `id` (for example `company-2024-01`).
+# Fields: company, role, start (YYYY-MM), end (YYYY-MM or null), location, highlights (2–4).
+[]

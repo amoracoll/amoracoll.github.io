@@ -1,0 +1,63 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getSortedProjects } from "../lib/projects";
+
+const MAX_FEATURED = 3;
+
+const site = await getEntry("site", "profile");
+const featured = (await getSortedProjects())
+  .filter((project) => project.data.featured)
+  .slice(0, MAX_FEATURED);
+---
+
+<BaseLayout
+  title={`${site?.data.name} — ${site?.data.role}`}
+  description={`${site?.data.name}, ${site?.data.role}. Experience, projects and contact.`}
+>
+  <div class="mx-auto flex max-w-3xl flex-col gap-12">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold md:text-4xl">{site?.data.name}</h1>
+      <p class="font-mono text-sm text-zinc-600 dark:text-zinc-400">
+        {site?.data.role}
+      </p>
+      <p class="text-lg">{site?.data.tagline}</p>
+      <p class="text-zinc-600 dark:text-zinc-400">TODO: short intro.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-semibold">Featured projects</h2>
+      {featured.length > 0 ? (
+        <div class="grid gap-4 md:grid-cols-2">
+          {featured.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-zinc-600 dark:text-zinc-400">No projects yet.</p>
+      )}
+    </section>
+
+    <nav aria-label="Sections" class="flex flex-wrap gap-6">
+      <a
+        href="/experience"
+        class="rounded text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+      >
+        Experience
+      </a>
+      <a
+        href="/projects"
+        class="rounded text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+      >
+        Projects
+      </a>
+      <a
+        href="/contact"
+        class="rounded text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+      >
+        Contact
+      </a>
+    </nav>
+  </div>
+</BaseLayout>

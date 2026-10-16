@@ -1,0 +1,16 @@
+---
+import { getEntry } from "astro:content";
+import SocialLinks from "./SocialLinks.astro";
+
+const site = await getEntry("site", "profile");
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-zinc-200 px-4 md:px-6 dark:border-zinc-800">
+  <div class="mx-auto flex max-w-5xl flex-col gap-4 py-6 text-sm text-zinc-600 md:flex-row md:items-center md:justify-between dark:text-zinc-400">
+    <p>
+      © {year} {site?.data.name}
+    </p>
+    <SocialLinks />
+  </div>
+</footer>

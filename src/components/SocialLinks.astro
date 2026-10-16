@@ -1,0 +1,25 @@
+---
+import { getEntry } from "astro:content";
+
+const site = await getEntry("site", "profile");
+const links = site
+  ? [
+      { href: `mailto:${site.data.email}`, label: "Email" },
+      { href: site.data.linkedin, label: "LinkedIn" },
+      { href: site.data.github, label: "GitHub" },
+    ]
+  : [];
+---
+
+<ul class="flex gap-4">
+  {links.map((link) => (
+    <li>
+      <a
+        href={link.href}
+        class="rounded text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+      >
+        {link.label}
+      </a>
+    </li>
+  ))}
+</ul>
