@@ -1,0 +1,1 @@
+// Explicar stack, comandos (dev, build, check) y la estructura de carpetas

@@ -1,0 +1,1 @@
+// Explicar que es la web, a quién va dirigida, qué secciones tiene y que se considera "terminado"
